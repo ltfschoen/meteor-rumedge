@@ -86,6 +86,20 @@ node --version
 ```
 heroku login
 heroku apps:create rumedge-stats
+# https://devcenter.heroku.com/articles/mongolab#getting-your-connection-uri
+heroku addons:destroy mongolab
+heroku addons:create mongolab:sandbox
+
+	# consult the mLab Add-on Admin UI to check on its progress.
+	# Created mongolab-shaped-17356 as MONGODB_URI
+	# Use heroku addons:docs mongolab to view documentation
+
+# show MongoDB Credentials
+heroku config:get MONGODB_URI
+
+# define MONGO_URL for meteor-buildpack-horse to work
+heroku config:add MONGO_URL=<INSERT-TERMINAL-OUTPUT-FROM-MONGODB_URI-QUERY>
+
 # heroku buildpacks:set https://github.com/jordansissel/heroku-buildpack-meteor.git
 # use Horse Buildpack instead https://github.com/AdmitHub/meteor-buildpack-horse
 heroku buildpacks:set https://github.com/AdmitHub/meteor-buildpack-horse.git
