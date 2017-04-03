@@ -22,7 +22,13 @@ v4.6.1
 * Find out location of Meteor Node (Important: Run the app once before running `mnode`)
 ```
 which meteor node
-nvm install 4.6.1
+nvm install 4.8.0
+
+# update to Meteor 1.4.2.7
+meteor update --patch
+
+meteor node -v
+v4.7.3
 ```
 
 * Update NPM dependencies 
@@ -106,9 +112,9 @@ heroku config:add MONGO_URL=<INSERT-TERMINAL-OUTPUT-FROM-MONGODB_URI-QUERY>
 # heroku buildpacks:set https://github.com/jordansissel/heroku-buildpack-meteor.git
 
 # Horse Buildpack https://github.com/AdmitHub/meteor-buildpack-horse
-# heroku buildpacks:set https://github.com/AdmitHub/meteor-buildpack-horse.git
-# heroku config:add BUILDPACK_PRELAUNCH_METEOR=1
-# heroku config:add BUILDPACK_VERBOSE=1
+heroku buildpacks:set https://github.com/AdmitHub/meteor-buildpack-horse.git
+heroku config:add BUILDPACK_PRELAUNCH_METEOR=1
+heroku config:add BUILDPACK_VERBOSE=1
 
 heroku config:add ROOT_URL=https://rumedge-stats.herokuapp.com
 git remote -v
