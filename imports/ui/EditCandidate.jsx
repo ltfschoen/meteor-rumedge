@@ -1,61 +1,62 @@
 import React, { Component } from 'react';
 
-export default class Edit extends Component {
-  showTeamStats() {
-    this.props.showTeamStats();
+export default class EditCandidate extends Component {
+  showAgencyStats() {
+    this.props.showAgencyStats();
   }
 
-  editPlayer(event) {
+  editCandidate(event) {
     event.preventDefault();
 
-    let player = {
-      _id: this.props.currentPlayer._id,
+    let candidate = {
+      _id: this.props.currentCandidate._id,
       name: this.refs.name.value,
-      team: this.refs.team.value,
-      ballManipulation: this.refs.ballManipulation.value,
-      kickingAbilities: this.refs.kickingAbilities.value,
-      passingAbilities: this.refs.passingAbilities.value,
-      duelTackling: this.refs.duelTackling.value,
-      fieldCoverage: this.refs.fieldCoverage.value,
-      blockingAbilities: this.refs.blockingAbilities.value,
-      gameStrategy: this.refs.gameStrategy.value,
-      playmakingRisks: this.refs.playmakingRisks.value,
+      agency: this.refs.agency.value,
+      design: this.refs.design.value,
+      responsive: this.refs.responsive.value,
+      performance: this.refs.performance.value,
+      databases: this.refs.databases.value,
+      testing: this.refs.testing.value,
+      security: this.refs.security.value,
+      architecture: this.refs.architecture.value,
+      debugging: this.refs.debugging.value,
       notes: this.refs.notes.value,
       createdAt: new Date(),
       owner: Meteor.userId(),
     }
 
-    Meteor.call('updatePlayer', player, (error) =>{
+    Meteor.call('updateCandidate', candidate, (error) =>{
       if(error) {
-        alert("Oups something went wrong: " + error.reason);
+        alert("Oops something went wrong: " + error.reason);
       } else {
-        alert("Player updated");
-        this.showTeamStats();
+        alert("Candidate updated");
+        this.showAgencyStats();
       }
     });
   }
 
   render() {
-    const currentPlayer = this.props.currentPlayer;
+    const currentCandidate = this.props.currentCandidate;
 
     return (
       <div className="row">
-        <form className="col s12" onSubmit={this.editPlayer.bind(this)}>
-          <h3>Add a new player</h3>
+        <a name="lower"></a>
+        <form className="col s12" onSubmit={this.editCandidate.bind(this)}>
+          <h3>Edit candidate</h3>
 
           <div className="row">
             <div className="input-field col s6">
-              <input placeholder="Name" ref="name" type="text" className="validate" defaultValue={currentPlayer.name}/>
+              <input placeholder="Name" ref="name" type="text" className="validate" defaultValue={currentCandidate.name}/>
             </div>
             <div className="input-field col s6">
-              <input placeholder="Team" ref="team" type="text" className="validate" defaultValue={currentPlayer.team}/>
+              <input placeholder="Agency" ref="agency" type="text" className="validate" defaultValue={currentCandidate.agency}/>
             </div>
           </div>
 
           <div className="row">
             <div className="input-field col s6">
-              <h5>Ball Manipulation</h5>
-              <select className="browser-default" ref="ballManipulation" defaultValue={currentPlayer.ballManipulation}>
+              <h5>Design Abilities</h5>
+              <select className="browser-default" ref="design" defaultValue={currentCandidate.design}>
                 <option value="0">0 - Hasn't demonstrated skills</option>
                 <option value="1">1 - Needs improvement</option>
                 <option value="2">2 - Skill acquired</option>
@@ -63,29 +64,8 @@ export default class Edit extends Component {
               </select>
             </div>
             <div className="input-field col s6">
-              <h5>Kicking Abilities</h5>
-              <select className="browser-default" ref="kickingAbilities" defaultValue={currentPlayer.kickingAbilities}>
-                <option value="0">0 - Hasn't demonstrated skills</option>
-                <option value="1">1 - Needs improvement</option>
-                <option value="2">2 - Skill acquired</option>
-                <option value="3">3 - Great skills/could teach</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="input-field col s6">
-              <h5>Passing Abilities</h5>
-              <select className="browser-default" ref="passingAbilities" defaultValue={currentPlayer.passingAbilities}>
-                <option value="0">0 - Hasn't demonstrated skills</option>
-                <option value="1">1 - Needs improvement</option>
-                <option value="2">2 - Skill acquired</option>
-                <option value="3">3 - Great skills/could teach</option>
-              </select>
-            </div>
-            <div className="input-field col s6">
-              <h5>Duel - Tackling</h5>
-              <select className="browser-default" ref="duelTackling" defaultValue={currentPlayer.duelTackling}>
+              <h5>Responsive Abilities</h5>
+              <select className="browser-default" ref="responsive" defaultValue={currentCandidate.responsive}>
                 <option value="0">0 - Hasn't demonstrated skills</option>
                 <option value="1">1 - Needs improvement</option>
                 <option value="2">2 - Skill acquired</option>
@@ -96,8 +76,8 @@ export default class Edit extends Component {
 
           <div className="row">
             <div className="input-field col s6">
-              <h5>Field Coverage - speed</h5>
-              <select className="browser-default" ref="fieldCoverage" defaultValue={currentPlayer.fieldCoverage}>
+              <h5>Performance Abilities</h5>
+              <select className="browser-default" ref="performance" defaultValue={currentCandidate.performance}>
                 <option value="0">0 - Hasn't demonstrated skills</option>
                 <option value="1">1 - Needs improvement</option>
                 <option value="2">2 - Skill acquired</option>
@@ -105,8 +85,8 @@ export default class Edit extends Component {
               </select>
             </div>
             <div className="input-field col s6">
-              <h5>Blocking Abilities</h5>
-              <select className="browser-default" ref="blockingAbilities" defaultValue={currentPlayer.blockingAbilities}>
+              <h5>Databases Abilities</h5>
+              <select className="browser-default" ref="databases" defaultValue={currentCandidate.databases}>
                 <option value="0">0 - Hasn't demonstrated skills</option>
                 <option value="1">1 - Needs improvement</option>
                 <option value="2">2 - Skill acquired</option>
@@ -117,8 +97,8 @@ export default class Edit extends Component {
 
           <div className="row">
             <div className="input-field col s6">
-              <h5>Game Strategy</h5>
-              <select className="browser-default" ref="gameStrategy" defaultValue={currentPlayer.gameStrategy}>
+              <h5>Testing Abilities</h5>
+              <select className="browser-default" ref="testing" defaultValue={currentCandidate.testing}>
                 <option value="0">0 - Hasn't demonstrated skills</option>
                 <option value="1">1 - Needs improvement</option>
                 <option value="2">2 - Skill acquired</option>
@@ -126,8 +106,29 @@ export default class Edit extends Component {
               </select>
             </div>
             <div className="input-field col s6">
-              <h5>Playmaking Risks</h5>
-              <select className="browser-default" ref="playmakingRisks" defaultValue={currentPlayer.playmakingRisks}>
+              <h5>Security Abilities</h5>
+              <select className="browser-default" ref="security" defaultValue={currentCandidate.security}>
+                <option value="0">0 - Hasn't demonstrated skills</option>
+                <option value="1">1 - Needs improvement</option>
+                <option value="2">2 - Skill acquired</option>
+                <option value="3">3 - Great skills/could teach</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="input-field col s6">
+              <h5>Architecture Abilities</h5>
+              <select className="browser-default" ref="architecture" defaultValue={currentCandidate.architecture}>
+                <option value="0">0 - Hasn't demonstrated skills</option>
+                <option value="1">1 - Needs improvement</option>
+                <option value="2">2 - Skill acquired</option>
+                <option value="3">3 - Great skills/could teach</option>
+              </select>
+            </div>
+            <div className="input-field col s6">
+              <h5>Debugging Abilities</h5>
+              <select className="browser-default" ref="debugging" defaultValue={currentCandidate.debugging}>
                 <option value="0">0 - Hasn't demonstrated skills</option>
                 <option value="1">1 - Needs improvement</option>
                 <option value="2">2 - Skill acquired</option>

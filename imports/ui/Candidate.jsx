@@ -18,23 +18,27 @@ const styles = {
   },
 };
 
-export default class Player extends Component {
+export default class Candidate extends Component {
+  showAgencyStats() {
+    this.props.showAgencyStats();
+  }
+
   showEditForm() {
     this.props.showEditForm();
   }
 
   render() {
-    const player = this.props.player;
-    const defense = player.duelTackling + player.fieldCoverage + player.blockingAbilities + player.gameStrategy + player.playmakingRisks;
-    const offense = player.kickingAbilities + player.gameStrategy + player.ballManipulation + player.passingAbilities + player.fieldCoverage + player.playmakingRisks;
-    const total = player.kickingAbilities + player.gameStrategy + player.ballManipulation + player.passingAbilities + player.fieldCoverage + player.playmakingRisks + player.duelTackling + player.blockingAbilities;
+    const candidate = this.props.candidate;
+    const backend = candidate.databases + candidate.testing + candidate.security + candidate.architecture + candidate.debugging;
+    const frontend = candidate.responsive + candidate.architecture + candidate.design + candidate.performance + candidate.testing + candidate.debugging;
+    const total = candidate.responsive + candidate.architecture + candidate.design + candidate.performance + candidate.testing + candidate.debugging + candidate.databases + candidate.security;
 
     return (
       <Card>
         <CardMedia
-          overlay={<CardTitle title={player.name} subtitle={`Offense: ${offense} - Defense: ${defense} - Total: ${total}`} />}
+          overlay={<CardTitle title={candidate.name} subtitle={`Frontend: ${frontend} - Backend: ${backend} - Total: ${total}`} />}
         >
-          <img src="player.jpg" />
+          <img src="candidate.png" />
         </CardMedia>
         <CardText>
           <div style={styles.wrapper}>
@@ -43,81 +47,88 @@ export default class Player extends Component {
             style={styles.chip}
             >
               <Avatar size={32} color={blue200} backgroundColor={blue900}>
-                {player.ballManipulation}
+                {candidate.design}
               </Avatar>
-              Ball manipulation
+              Design
             </Chip>
             <Chip
             backgroundColor={blue200}
             style={styles.chip}
             >
             <Avatar size={32} color={blue200} backgroundColor={blue900}>
-              {player.kickingAbilities}
+              {candidate.responsive}
             </Avatar>
-            Kicking abilities
+            Responsive
           </Chip>
           <Chip
             backgroundColor={blue200}
             style={styles.chip}
             >
             <Avatar size={32} color={blue200} backgroundColor={blue900}>
-              {player.passingAbilities}
+              {candidate.performance}
             </Avatar>
-            Passing abilities
+            Performance
           </Chip>
           <Chip
             backgroundColor={blue200}
             style={styles.chip}
             >
             <Avatar size={32} color={blue200} backgroundColor={blue900}>
-              {player.duelTackling}
+              {candidate.databases}
             </Avatar>
-            Duel/Tackling abilities
+            Database
           </Chip>
           <Chip
             backgroundColor={blue200}
             style={styles.chip}
             >
             <Avatar size={32} color={blue200} backgroundColor={blue900}>
-              {player.fieldCoverage}
+              {candidate.testing}
             </Avatar>
-            Field speed coverage
+            Testing
           </Chip>
           <Chip
             backgroundColor={blue200}
             style={styles.chip}
             >
             <Avatar size={32} color={blue200} backgroundColor={blue900}>
-              {player.blockingAbilities}
+              {candidate.security}
             </Avatar>
-            Blocking abilities
+            Security
           </Chip>
           <Chip
             backgroundColor={blue200}
             style={styles.chip}
             >
             <Avatar size={32} color={blue200} backgroundColor={blue900}>
-              {player.gameStrategy}
+              {candidate.architecture}
             </Avatar>
-            Game strategy
+            Architecture
           </Chip>
           <Chip
             backgroundColor={blue200}
             style={styles.chip}
             >
             <Avatar size={32} color={blue200} backgroundColor={blue900}>
-              {player.playmakingRisks}
+              {candidate.debugging}
             </Avatar>
-            Playmaking risks
+            Debugging
           </Chip>
           </div>
         </CardText>
         <CardActions>
           <RaisedButton
-            label="Edit player/stats"
-            labelPosition="before"
+            label="Edit"
+            labelPosition="after"
             style={styles.button}
-            onClick={this.showEditForm.bind(this)}/>
+            onClick={this.showEditForm.bind(this)}
+          />
+          <RaisedButton
+            label="Stats"
+            labelPosition="after"
+            style={styles.button}
+            onClick={this.showAgencyStats.bind(this)}
+          />
         </CardActions>
       </Card>
     )

@@ -8,26 +8,27 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Link } from 'react-router';
 
 // database - collection
-import { Players } from '../api/players';
+import { Candidates } from '../api/candidates';
 
-import TeamList from './Team-list';
-import TeamStats from './Team-stats';
-import Player from './Player';
+import AgencyList from './Agency-list';
+import AgencyStats from './Agency-stats';
+import Candidate from './Candidate';
 import AccountsWrapper from './AccountsWrapper';
-import Edit from './EditPlayer';
+import NewCandidate from './NewCandidate';
+import EditCandidate from './EditCandidate';
 
-const tempPlayer = {
-  name: "Temp player",
-  team: "Lynda",
-  ballManipulation: 2,
-  kickingAbilities: 3,
-  passingAbilities: 2,
-  duelTackling: 1,
-  fieldCoverage: 2,
-  blockingAbilities: 0,
-  gameStrategy: 1,
-  playmakingRisks: 2,
-  notes: "This player is only temporary",
+let initialCandidate = {
+  name: "Demo Candidate",
+  agency: "Demo Agency",
+  design: 1,
+  responsive: 2,
+  performance: 1,
+  databases: 0,
+  testing: 1,
+  security: 0,
+  architecture: 1,
+  debugging: 0,
+  notes: "Demo candidate",
 }
 
 export class App extends Component {
@@ -36,45 +37,72 @@ export class App extends Component {
 
     // setting up the state
     this.state = {
-      currentPlayer: tempPlayer,
-      showEditPlayer: false,
-     };
-    this.updateCurrentPlayer = this.updateCurrentPlayer.bind(this);
+      currentCandidate: initialCandidate,
+      showNewCandidate: false,
+      showEditCandidate: false,
+    };
+    this.updateCurrentCandidate = this.updateCurrentCandidate.bind(this);
+    this.showNewForm = this.showNewForm.bind(this);
     this.showEditForm = this.showEditForm.bind(this);
-    this.showTeamStats = this.showTeamStats.bind(this);
-
+    this.showAgencyStats = this.showAgencyStats.bind(this);
+    this.initCandidate = this.initCandidate.bind(this);
   }
 
-  renderPlayers() {
-    return this.props.players.map((player) => (
-      <TeamList key={player._id} player={player} updateCurrentPlayer={this.updateCurrentPlayer}/>
+  initCandidate() {
+    Meteor.call('initCandidate', initialCandidate, (error) => {
+      if(error) {
+        alert("Oops something went wrong: " + error.reason);
+      } else {
+        alert("Inital Candidate added");
+        browserHistory.push('/');
+      }
+    });
+  }
+
+  renderCandidates() {
+    return this.props.candidates.map((candidate) => (
+      <AgencyList key={candidate._id} candidate={candidate} 
+                  updateCurrentCandidate={this.updateCurrentCandidate}/>
     ));
   }
 
-  updateCurrentPlayer(player) {
+  updateCurrentCandidate(candidate) {
     this.setState({
-      currentPlayer: player,
+      currentCandidate: candidate,
     });
+  }
+
+  showNewForm() {
+    this.setState({
+      showNewCandidate: true,
+      showEditCandidate: false
+    });
+    window.location.href = "#lower";
   }
 
   showEditForm() {
     this.setState({
-      showEditPlayer: true,
+      showNewCandidate: false,
+      showEditCandidate: true,
     });
+    window.location.href = "#lower";
   }
 
-  showTeamStats() {
+  showAgencyStats() {
     this.setState({
-      showEditPlayer: false,
+      showEditCandidate: false,
     });
   }
 
   showForm() {
-    if(this.state.showEditPlayer === true) {
-      return (<Edit currentPlayer={this.state.currentPlayer}
-      showTeamStats={this.showTeamStats}/>);
+    if(this.state.showNewCandidate === true) {
+      return (<NewCandidate currentCandidate={this.state.currentCandidate}
+      showAgencyStats={this.showAgencyStats}/>);
+    } else if (this.state.showEditCandidate === true) {
+      return (<EditCandidate currentCandidate={this.state.currentCandidate}
+      showAgencyStats={this.showAgencyStats}/>);
     } else {
-      return (<TeamStats players={this.props.players}/>);
+      return (<AgencyStats candidates={this.props.candidates}/>);
     }
   }
 
@@ -83,18 +111,22 @@ export class App extends Component {
       <MuiThemeProvider>
         <div className="container">
           <AppBar
-            title="Soccer Application"
+            title="Rumedge HR Stats App"
             iconClassNameRight="muidocs-icon-navigation-expand-more"
             showMenuIconButton={false}>
-              <AccountsWrapper />
+              {/* <AccountsWrapper /> */}
             </AppBar>
           <div className="row">
-            <div className="col s12 m7" ><Player player={this.state.currentPlayer} showEditForm={this.showEditForm}/></div>
+            <div className="col s12 m7" ><Candidate candidate={this.state.currentCandidate}
+                                                    showAgencyStats={this.showAgencyStats} 
+                                                    showEditForm={this.showEditForm}/></div>
             <div className="col s12 m5" >
-              <h2>Team list</h2><Link to="/new" className="waves-effect waves-light btn">Add player</Link>
+              <h2>Agency list</h2>
+              <Link to="#" className="waves-effect waves-light btn" 
+                           onClick={this.showNewForm}>New Candidate</Link>
               <Divider/>
                 <List>
-                  {this.renderPlayers()}
+                  {this.renderCandidates()}
                 </List>
               <Divider/>
             </div>
@@ -115,14 +147,14 @@ export class App extends Component {
 }
 
 App.propTypes = {
-  players: PropTypes.array.isRequired,
+  candidates: PropTypes.array.isRequired,
 };
 
 export default createContainer(() => {
-  Meteor.subscribe('players');
+  Meteor.subscribe('candidates');
   const user = Meteor.userId();
 
   return {
-    players: Players.find({ owner: user }, {sort: { name: 1}}).fetch(),
+    candidates: Candidates.find({ owner: user }, {sort: { name: 1}}).fetch(),
   };
 }, App);

@@ -1,5 +1,5 @@
 {
-  "name": "soccer-app",
+  "name": "rumedge-hr-stats-app",
   "private": true,
   "scripts": {
     "start": "meteor run"

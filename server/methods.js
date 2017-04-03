@@ -1,17 +1,31 @@
 import { Meteor } from 'meteor/meteor';
-import { Players } from '../imports/api/players';
+import { Candidates } from '../imports/api/candidates';
 
 Meteor.methods({
-  insertPlayer(player) {
-    Players.insert(player);
+  initCandidate(candidate) {
+    if (Candidates.find({}).fetch().length == 0) {
+      Candidates.insert(candidate);
+    }
   },
 
-  updatePlayer(player) {
-    Players.update(player._id,
-    { $set: player});
+  insertCandidate(candidate) {
+    // console.log(JSON.stringify(candidate, null, 2));
+    Candidates.insert(candidate);
   },
 
-  deletePlayer(playerId) {
-    Players.remove(playerId);
+  updateCandidate(candidate) {
+    Candidates.update(candidate._id,
+    { $set: candidate});
+  },
+
+  deleteCandidate(candidateId) {
+    console.log("FF");
+    // console.log("AA", Candidates.findOne({_id: candidateId})[0]["name"] == "Demo Candidate");
+
+    // Prevent deletion of demo candidate
+    if (Candidates.findOne({_id: candidateId})[0]["name"] == "Demo Candidate" ) {
+      return false;
+    }
+    Candidates.remove(candidateId);
   }
 });
