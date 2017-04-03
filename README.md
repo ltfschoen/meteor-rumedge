@@ -44,18 +44,18 @@ yarn install
 
 * Run app web server
 ```
-npm start
+npm run dev
 ```
 
 ## Deploy
 
-* https://devcenter.heroku.com/articles/deploying-nodejs
+### Test Local Deployment
 
+* run app locally prior to Heroku https://devcenter.heroku.com/articles/deploying-nodejs
+```
 rm -rf node_modules; npm install --production
-
-# run app locally prior to Heroku
-
 heroku local --procfile Procfile
+```
 
 # check Node version
 node --version

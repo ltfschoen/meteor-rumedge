@@ -1,1 +1,1 @@
-web: npm install --save react react-dom react-tap-event-plugin react-router material-ui react-chartjs-2; npm start;
+web: npm install --save react react-dom react-tap-event-plugin react-router material-ui react-chartjs-2; npm run dev;
