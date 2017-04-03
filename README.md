@@ -4,8 +4,8 @@
 
 * Update NPM dependencies 
 ```bash
-npm install
-npm update
+meteor npm install
+meteor npm update
 ```
 
 * Install and update Meteor
@@ -16,7 +16,7 @@ curl https://install.meteor.com/ | sh
 
 # update meteor
 meteor update --all-packages
-meteor npm install --save react
+meteor npm install --save react react-dom react-tap-event-plugin react-router material-ui react-chartjs-2
 ```
 
 * Update Brew and install Yarn
@@ -45,4 +45,16 @@ yarn install
 * Run app web server
 ```
 npm start
+```
+
+## Deploy
+
+```
+heroku login
+heroku apps:create rumedge-stats
+heroku buildpacks:set https://github.com/jordansissel/heroku-buildpack-meteor.git
+heroku config:add ROOT_URL=https://rumedge-stats.herokuapp.com
+git remote -v
+git push heroku master
+heroku logs --tail --app rumedge-stats
 ```
