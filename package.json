@@ -1,7 +1,7 @@
 {
   "name": "rumedge-hr-stats-app",
   "scripts": {
-    "dev": "meteor run"
+    "start": "meteor run"
   },
   "engineStrict" : true,
   "engines": {

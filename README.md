@@ -112,6 +112,8 @@ heroku config:add MONGO_URL=<INSERT-TERMINAL-OUTPUT-FROM-MONGODB_URI-QUERY>
 
 heroku config:add ROOT_URL=https://rumedge-stats.herokuapp.com
 git remote -v
+# https://github.com/AdmitHub/meteor-buildpack-horse/issues/144
+git commit --allow-empty -m "Rebuild, heroku"
 git push heroku master
 heroku logs --tail --app rumedge-stats
 heroku run bash --app rumedge-stats
