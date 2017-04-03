@@ -3,6 +3,9 @@
   "scripts": {
     "start": "meteor run"
   },
+  "engines": {
+    "node": "6.6.0"
+  },
   "dependencies": {
     "bcrypt": "^0.8.7",
     "material-ui": "^0.16.7",

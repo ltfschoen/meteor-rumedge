@@ -49,6 +49,19 @@ npm start
 
 ## Deploy
 
+* https://devcenter.heroku.com/articles/deploying-nodejs
+
+rm -rf node_modules; npm install --production
+
+# run app locally prior to Heroku
+
+heroku local --procfile Procfile
+
+# check Node version
+node --version
+
+# update package.json with "engine" whose value is node version used in dev
+
 ```
 heroku login
 heroku apps:create rumedge-stats
