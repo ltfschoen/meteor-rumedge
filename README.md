@@ -36,8 +36,8 @@ meteor npm update
 curl https://install.meteor.com/ | sh
 
 # update meteor
+meteor npm install --save react react-dom react-tap-event-plugin react-router material-ui react-chartjs-2 babel-runtime
 meteor update --all-packages
-meteor npm install --save react react-dom react-tap-event-plugin react-router material-ui react-chartjs-2
 ```
 
 * Update Brew and install Yarn
