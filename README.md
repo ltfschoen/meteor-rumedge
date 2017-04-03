@@ -86,7 +86,11 @@ node --version
 ```
 heroku login
 heroku apps:create rumedge-stats
-heroku buildpacks:set https://github.com/jordansissel/heroku-buildpack-meteor.git
+# heroku buildpacks:set https://github.com/jordansissel/heroku-buildpack-meteor.git
+# use Horse Buildpack instead https://github.com/AdmitHub/meteor-buildpack-horse
+heroku buildpacks:set https://github.com/AdmitHub/meteor-buildpack-horse.git
+heroku config:add BUILDPACK_PRELAUNCH_METEOR=1
+heroku config:add BUILDPACK_VERBOSE=1
 heroku config:add ROOT_URL=https://rumedge-stats.herokuapp.com
 git remote -v
 git push heroku master
