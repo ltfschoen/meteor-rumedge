@@ -13,14 +13,16 @@ Now using node v7.7.4 (npm v4.1.2)
 $ node -v
 v7.7.4
 
+meteor update --release 1.4.2
+
 $ meteor node -v
-v4.8.0
+v4.6.1
 ``` 
 
 * Find out location of Meteor Node (Important: Run the app once before running `mnode`)
 ```
 which meteor node
-nvm install 4.8.0
+nvm install 4.6.1
 ```
 
 * Update NPM dependencies 
@@ -86,6 +88,7 @@ node --version
 ```
 heroku login
 heroku apps:create rumedge-stats
+# heroku apps:create rumedge-stats --stack cedar --region us --buildpack https://github.com/jordansissel/heroku-buildpack-meteor.git
 # https://devcenter.heroku.com/articles/mongolab#getting-your-connection-uri
 heroku addons:destroy mongolab
 heroku addons:create mongolab:sandbox
@@ -101,10 +104,12 @@ heroku config:get MONGODB_URI
 heroku config:add MONGO_URL=<INSERT-TERMINAL-OUTPUT-FROM-MONGODB_URI-QUERY>
 
 # heroku buildpacks:set https://github.com/jordansissel/heroku-buildpack-meteor.git
-# use Horse Buildpack instead https://github.com/AdmitHub/meteor-buildpack-horse
-heroku buildpacks:set https://github.com/AdmitHub/meteor-buildpack-horse.git
-heroku config:add BUILDPACK_PRELAUNCH_METEOR=1
-heroku config:add BUILDPACK_VERBOSE=1
+
+# Horse Buildpack https://github.com/AdmitHub/meteor-buildpack-horse
+# heroku buildpacks:set https://github.com/AdmitHub/meteor-buildpack-horse.git
+# heroku config:add BUILDPACK_PRELAUNCH_METEOR=1
+# heroku config:add BUILDPACK_VERBOSE=1
+
 heroku config:add ROOT_URL=https://rumedge-stats.herokuapp.com
 git remote -v
 git push heroku master

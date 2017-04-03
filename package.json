@@ -3,9 +3,10 @@
   "scripts": {
     "dev": "meteor run"
   },
+  "engineStrict" : true,
   "engines": {
-    "node": "4.8.0",
-    "npm": "2.15.11"
+    "node": "4.6.1",
+    "npm": "3.10.9"
   },
   "dependencies": {
     "babel-runtime": "^6.23.0",
