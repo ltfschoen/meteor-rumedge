@@ -4,7 +4,7 @@
     "dev": "meteor run"
   },
   "engines": {
-    "node": "6.6.0"
+    "node": "4.8.0"
   },
   "dependencies": {
     "bcrypt": "^0.8.7",
