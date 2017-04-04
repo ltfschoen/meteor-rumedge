@@ -19,13 +19,16 @@ $ meteor node -v
 v4.6.1
 ``` 
 
-* Find out location of Meteor Node (Important: Run the app once before running `mnode`)
+* Update to Meteor patch version 1.4.2.7 from 1.4.2
 ```
 which meteor node
 nvm install 4.8.0
 
 # update to Meteor 1.4.2.7
 meteor update --patch
+
+node -v
+v4.8.0
 
 meteor node -v
 v4.7.3
@@ -44,7 +47,7 @@ meteor npm update
 curl https://install.meteor.com/ | sh
 
 # update meteor
-meteor npm install --save react react-dom react-tap-event-plugin react-router material-ui react-chartjs-2 babel-runtime
+meteor npm install --save react react-dom react-tap-event-plugin react-router material-ui react-chartjs-2
 meteor update --all-packages
 ```
 
@@ -73,7 +76,7 @@ yarn install
 
 * Run app web server
 ```
-npm run dev
+npm start
 ```
 
 ## Deploy
@@ -89,12 +92,12 @@ heroku local --procfile Procfile
 # check Node version
 node --version
 
-# update package.json with "engine" whose value matches Meteor Node version 4.8.0
+# update package.json with "engine" whose value matches Meteor Node version
 
 ```
 heroku login
 heroku apps:create rumedge-stats
-# heroku apps:create rumedge-stats --stack cedar --region us --buildpack https://github.com/jordansissel/heroku-buildpack-meteor.git
+# heroku apps:create rumedge-stats --stack cedar --region us --buildpack https://github.com/AdmitHub/meteor-buildpack-horse
 # https://devcenter.heroku.com/articles/mongolab#getting-your-connection-uri
 heroku addons:destroy mongolab
 heroku addons:create mongolab:sandbox
@@ -109,11 +112,11 @@ heroku config:get MONGODB_URI
 # define MONGO_URL for meteor-buildpack-horse to work
 heroku config:add MONGO_URL=<INSERT-TERMINAL-OUTPUT-FROM-MONGODB_URI-QUERY>
 
-# heroku buildpacks:set https://github.com/jordansissel/heroku-buildpack-meteor.git
+# DO NOT USE heroku buildpacks:set https://github.com/jordansissel/heroku-buildpack-meteor.git
 
 # Horse Buildpack https://github.com/AdmitHub/meteor-buildpack-horse
 heroku buildpacks:set https://github.com/AdmitHub/meteor-buildpack-horse.git
-heroku config:add BUILDPACK_PRELAUNCH_METEOR=1
+# NOT REQUIRED heroku config:add BUILDPACK_PRELAUNCH_METEOR=1
 heroku config:add BUILDPACK_VERBOSE=1
 
 heroku config:add ROOT_URL=https://rumedge-stats.herokuapp.com
@@ -123,10 +126,4 @@ git commit --allow-empty -m "Rebuild, heroku"
 git push heroku master
 heroku logs --tail --app rumedge-stats
 heroku run bash --app rumedge-stats
-	~ $ node build/bundle/main.js
-
-	/app/build/bundle/programs/server/mini-files.js:74
-	const unicodeNormalizePath = (path) => {
-	                                     ^
-	SyntaxError: Unexpected token >
 ```
