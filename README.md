@@ -1,5 +1,13 @@
 # HR Stats app
 
+---
+
+## Screenshot
+
+![alt tag](https://raw.githubusercontent.com/ltfschoen/meteor-rumedge/master/public/screenshot.png)
+
+---
+
 ## Initial Setup
 
 * Switch to latest Node version using NVM
