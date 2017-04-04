@@ -82,9 +82,32 @@ brew install yarn
 yarn install
 ```
 
-* Run app web server
+# Setup MongoDB for dev env
 ```
-npm start
+brew install mongodb --with-openssl
+mkdir data && mkdir data/db
+$ which mongod
+/usr/local/bin/mongod
+```
+
+* Open new Bash Terminal tab and run
+```
+mongod --dbpath data/db
+```
+
+* Run app web server locally in the original Bash Terminal tab
+```
+meteor
+```
+
+* Go to localhost:3000
+
+* Run MongoDB in separate terminal window whilst app web server running
+```
+meteor reset
+meteor mongo
+help
+exit
 ```
 
 ## Deploy
